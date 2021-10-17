@@ -1,10 +1,14 @@
 package com.example.demo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 
+import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.services.IUserService;
 
@@ -20,10 +24,44 @@ public class UserServiceImplTest {
 	IUserService us;
 	
 	@Test
-	@Order(1)
+	@Order(1) //c
 	public void testRetrieveAllUsers(){
 		List<User> listUsers = us.retrieveAllUsers();
-		Assertions.assertEquals(0, listUsers.size());
+		Assertions.assertEquals(us.getUsersCount(), listUsers.size());
+	}
+	
+	@Test
+	@Order(2) //c
+	public void testAddUser() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = dateFormat.parse("2013-05-30");
+		User u = new User("John","Doe",d,Role.TECHNICIEN);
+		User userAdded = us.addUser(u);
+		Assertions.assertEquals(u.getLastName(),userAdded.getLastName());
+	}
+	
+	@Test
+	@Order(3) //c
+	public void testModifyUser() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = dateFormat.parse("2017-06-07");
+		User u = new User(2L,"Fahd","Larayedh",d,Role.INGENIEUR);
+		User userUpdated = us.updateUser(u);
+		Assertions.assertEquals(u.getLastName(),userUpdated.getLastName());
+	}
+	
+	@Test
+	@Order(4) //c
+	public void testRetrieveUser(){
+		User user = us.retrieveUser("2");
+		Assertions.assertEquals(2L, user.getId());
+	}
+	
+	@Test
+	@Order(5)  //d
+	public void testDeleteUser(){
+		us.deleteUser("6"); //d
+		Assertions.assertNull(us.retrieveUser("6")); //d
 	}
 	
 }

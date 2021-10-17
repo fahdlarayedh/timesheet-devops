@@ -36,6 +36,27 @@ public class UserServiceImpl implements IUserService {
 
 		return users;
 	}
+	
+	@Override
+	public int getUsersCount() { 
+		List<User> users = null; 
+		try {
+			l.info("In Method getUsersCount :");
+			users = (List<User>) userRepository.findAll();  
+			for (User user : users) {
+				l.debug(user.toString());
+			}
+			l.info("Out Method getUsersCount :");
+		}catch (Exception e) {
+			l.error("Error in getUsersCount : "+e);
+		}
+
+		if(users != null){
+			return users.size();
+		}else{
+			return 0;
+		}
+	}
 
 
 	@Override
@@ -64,10 +85,22 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User retrieveUser(String id) {
 		l.info("In Method retrieveUser :");
-		//User u =  userRepository.findById(Long.parseLong(id)).orElse(null);
-		User u =  userRepository.findById(Long.parseLong(id)).get(); 
+		User u =  userRepository.findById(Long.parseLong(id)).orElse(null);
+		//User u =  userRepository.findById(Long.parseLong(id)).get(); 
 		l.info("In Method retrieveUser :");
 		return u; 
 	}
+
+	
+	/*@Override
+	public User retrieveUser(String id) {
+		User u = null;
+		try {
+			u =  userRepository.findById(Long.parseLong(id)).get();	
+		}catch(Exception e){
+			l.error(e);
+		}
+		return u; 
+	}*/
 
 }
