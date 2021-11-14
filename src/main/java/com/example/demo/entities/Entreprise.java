@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Entreprise implements Serializable{
+public class Entreprise implements Serializable {
 			 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class Entreprise implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	private String name;
 	
@@ -39,16 +39,22 @@ public class Entreprise implements Serializable{
 		super();
 	}
 
+	public Entreprise(Long id,String name, String raisonSocial) {
+		this.id = id;
+		this.name = name;
+		this.raisonSocial = raisonSocial;
+	}
+	
 	public Entreprise(String name, String raisonSocial) {
 		this.name = name;
 		this.raisonSocial = raisonSocial;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

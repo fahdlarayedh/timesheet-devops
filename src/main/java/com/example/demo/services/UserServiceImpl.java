@@ -63,7 +63,7 @@ public class UserServiceImpl implements IUserService {
 	public User addUser(User u) {
 		l.info("In Method addUser :");
 		User u_saved = userRepository.save(u); 
-		l.info("In Method addUser :");
+		l.info("Out Method addUser :");
 		return u_saved; 
 	}
 
@@ -71,24 +71,31 @@ public class UserServiceImpl implements IUserService {
 	public User updateUser(User u) { 
 		l.info("In Method updateUser :");
 		User u_saved = userRepository.save(u); 
-		l.info("In Method updateUser :");
+		l.info("Out Method updateUser :");
 		return u_saved; 
 	}
 
 	@Override
-	public void deleteUser(String id) {
+	public void deleteUser(Long id) {
 		l.info("In Method deleteUser :");
-		userRepository.deleteById(Long.parseLong(id)); 
-		l.info("In Method deleteUser :");
+		userRepository.deleteById((id)); 
+		l.info("Out Method deleteUser :");
 	}
 
 	@Override
-	public User retrieveUser(String id) {
+	public User retrieveUser(Long id) {
 		l.info("In Method retrieveUser :");
-		User u =  userRepository.findById(Long.parseLong(id)).orElse(null);
-		//User u =  userRepository.findById(Long.parseLong(id)).get(); 
-		l.info("In Method retrieveUser :");
+		User u =  userRepository.findById((id)).orElse(null);
+		l.info("Out Method retrieveUser :");
 		return u; 
+	}
+
+	@Override
+	public Long getLastAddedUserId() {
+		l.info("In Method getLastAddedUserId :");
+		l.info("Out Method getLastAddedUserId :");
+
+		return userRepository.getMaxId();
 	}
 
 	

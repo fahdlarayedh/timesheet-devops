@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,14 +23,14 @@ public class UserServiceImplTest {
 
 	@Autowired
 	IUserService us;
-	
+	  
 	@Test
 	@Order(1) //c
 	public void testRetrieveAllUsers(){
 		List<User> listUsers = us.retrieveAllUsers();
 		Assertions.assertEquals(us.getUsersCount(), listUsers.size());
 	}
-	
+
 	@Test
 	@Order(2) //c
 	public void testAddUser() throws ParseException {
@@ -53,15 +54,16 @@ public class UserServiceImplTest {
 	@Test
 	@Order(4) //c
 	public void testRetrieveUser(){
-		User user = us.retrieveUser("2");
+		User user = us.retrieveUser(2L);
 		Assertions.assertEquals(2L, user.getId());
 	}
-	/*
+	
 	@Test
 	@Order(5)  //d
 	public void testDeleteUser(){
-		us.deleteUser("12"); //d
-		Assertions.assertNull(us.retrieveUser("12")); //d
+		Long id = us.getLastAddedUserId();
+		us.deleteUser(id); //d
+		Assertions.assertNull(us.retrieveUser(id)); //d
 	}
-	*/
+	
 }
